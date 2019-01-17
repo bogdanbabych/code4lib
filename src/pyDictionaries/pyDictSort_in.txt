@@ -1,0 +1,1 @@
+/Users/bogdan/elisp/code4phrasebook/src/pyDictionaries/bnc_corpus_10k_selection.txt

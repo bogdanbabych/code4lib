@@ -1,0 +1,69 @@
+
+developing an infrastructure design principles
+'philosophy' of the r&d:
+
+software infrastructure:
+    1. scalability;
+    2. neutral way: code can handle (if possile) a memory-based solution -- for speed; or a file-based solution (for resources) 
+    e.g., if file processing pipelines preferred rather than memory-based solutions (unless speed is critical)
+    -- the objects are written in a neutral way; 
+    3. compatibility with old interpreters (eval of command line arguments -- direct argument injection via "eval" statement rather than newer argument processing libraries)
+    4. self-documenting, where possible
+    
+    5. data and code are developed and maintained together in the same package (access to data + experimental results / processing;
+    sample data always with code; larger dataset accessed via Git on servers;
+    
+    --> the goal is to increase productivity of the experiment design;
+    
+    direct argument injection: arguments are written in a shell script file as they should appear in code, and then -- evaluated;
+    taking advantage of the python code and sample / usage / documenting shell script used / working together
+    
+    in the object initialisation statement the procedure of using the code / object is examplified; otherwise the object can be used in a data-type neutral way.
+    
+    
+
+    cf.:
+    list comprehension preferred because of readability;
+    shorter way of describing intended behaviour without using intermediate variables
+    
+    
+            TKeyColumns = tuple(LLine[i] for i in range(len(LLine)) if i in LKeyColumns)
+            TValueColumns = tuple(LLine[i] for i in range(len(LLine)) if i in LValueColumns)
+            # TValueColumns = tuple(j for j in LKeyColumns)
+            
+            sys.stderr.write('TKeyColumns = %(TKeyColumns)s\n' % locals())
+            sys.stderr.write('TValueColumns = %(TValueColumns)s\n\n' % locals())
+            
+            
+            """
+            L2TKeyColumns = []
+            L2TValueColumns = []
+            for colnum in LKeyColumns:
+                L2TKeyColumns.append(LLine[colnum])
+                
+            for colnum in LValueColumns:
+                L2TValueColumns.append(LLine[colnum]) # if the list is empty, then just a 1D frq dictionary is created
+            
+            if len(L2TKeyColumns) == 0: continue # this should not be an empty tuple in the index
+            TKeyColumns = tuple(L2TKeyColumns)
+            TValueColumns = tuple(L2TValueColumns)
+            
+            self.DFieldFrq
+            
+            """
+
+    // not working:
+            # TKeyColumns = tuple(item for j in LKeyColumns for item in LLine[j])
+            # TValueColumns = tuple(item for j in LValueColumns for item in LLine[j])
+
+            
+todo next:
+    - to implement string output for the database (to be used in GDBM, etc.).
+    
+    - in the VRT file to introduce 'lemmatised' pos format:
+    develop a theoretical framework / model for partial / underspecified pos codes...
+    
+    - to develop a VRT library:
+    underspecified representations: constructions; etc.
+    
+    
