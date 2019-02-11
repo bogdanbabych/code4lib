@@ -47,8 +47,10 @@ class clPyDictSort(object):
             # sys.stdout.write('%(LLine)s\n' % locals())
             
             
-            TKeyColumns = tuple(LLine[i] for i in range(len(LLine)) if i in LKeyColumns)
-            TValueColumns = tuple(LLine[i] for i in range(len(LLine)) if i in LValueColumns)
+            # TKeyColumns = tuple(LLine[i] for i in range(len(LLine)) if i in LKeyColumns)
+            # TValueColumns = tuple(LLine[i] for i in range(len(LLine)) if i in LValueColumns)
+            TKeyColumns = tuple(LLine[i] for i in LKeyColumns)
+            TValueColumns = tuple(LLine[i] for i in LValueColumns)
             
             # sys.stderr.write('TKeyColumns = %(TKeyColumns)s\n' % locals())
             # sys.stderr.write('TValueColumns = %(TValueColumns)s\n\n' % locals())
@@ -59,16 +61,28 @@ class clPyDictSort(object):
         # sys.stdout.write('done\n')
         return
         
-    def printData(self):
+    def printData(self, BPrintStrFormat=False):
         for (key, val) in sorted(self.DFieldFrq.items(), key=lambda k: k[1], reverse=True ):
-            sys.stdout.write('%(key)s = %(val)s\n' % locals())
+            if BPrintStrFormat:
+                KeyStr = '~'.join(key)
+                sys.stdout.write('%(KeyStr)s\t%(val)s\n' % locals())
+            else:
+                sys.stdout.write('%(key)s=%(val)s\n' % locals())
         return
     
-    def printData2D(self):
+    def printData2D(self, BPrintStrFormat=False):
         for (key, DVal) in sorted(self.DFieldFrq2D.items()):
-            sys.stdout.write('%(key)s\t' % locals())
+            if BPrintStrFormat:
+                KeyStr = '~'.join(key)
+                sys.stdout.write('%(KeyStr)s\t' % locals())
+            else:
+                sys.stdout.write('%(key)s\t' % locals())
             for (TFieldComb, IFrq) in sorted(DVal.items(), key=lambda k: k[1], reverse=True):
-                sys.stdout.write('%(TFieldComb)s=%(IFrq)d,' % locals())
+                if BPrintStrFormat:
+                    TFieldCombStr = '~'.join(TFieldComb)
+                    sys.stdout.write('%(TFieldCombStr)s:%(IFrq)d,' % locals())
+                else:
+                    sys.stdout.write('%(TFieldComb)s=%(IFrq)d,' % locals())
             sys.stdout.write('\n')
         return
             
@@ -110,6 +124,9 @@ if __name__ == '__main__':
     OPyDictSort = clPyDictSort(FInput, LKeyColumns, LValueColumns)
     # OPyDictSort.printData()
     OPyDictSort.printData2D()
+    # OPyDictSort.printData(BPrintStrFormat=True)
+    # OPyDictSort.printData2D(BPrintStrFormat=True)
+    
     
     
     

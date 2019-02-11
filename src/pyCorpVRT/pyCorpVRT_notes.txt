@@ -1,0 +1,56 @@
+the module is collecting configurations of pos codes and 
+(in future) -- lexicalised representations / constructions
+
+
+todo: 
+    model of underspecified lexicalised representations;
+    
+specification of the functionality:
+    each combination of features for a given position:
+        >> associates a frequency dictionary of pos sequences;
+        >> further : lexicalised :?: constructions :: introducing association measures... 
+        >> further : syntactic trees / dependencies ?
+
+
+
+
+
+use the pyDictSort as the basis:
+
+
+template:
+==========================
+'''
+Created on 17 Jan 2019
+
+@author: bogdan
+'''
+
+import os, sys, re
+
+
+class clPyCorpVRT(object):
+    '''
+    class processes a corpus in vertical text format (VRT) records configurations of pos codes associated with specific lexical items
+    creates a 2D frequency dictionary: 
+    for a given combination of features in a position a structural configuration is collected, and its frequencies are ranked...
+    '''
+
+
+    def __init__(self):
+        '''
+        Constructor
+        '''
+
+
+if __name__ == '__main__':
+    # shell script:
+    # python pyCorpVRT.py "LKeyColumns.extend([2,1])" "LValueColumns.extend([1])" < pyCorpVRT_in.txt > pyCorpVRT_out.txt
+    
+    FInput = sys.stdin    
+    OPyCorpVRT = clPyCorpVRT(FInput, LKeyColumns, LValueColumns)
+    
+=======================
+    
+https://iterm2.com/coprocesses.html
+
