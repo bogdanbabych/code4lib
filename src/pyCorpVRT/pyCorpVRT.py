@@ -142,11 +142,16 @@ if __name__ == '__main__':
     
     
     OPyCorpVRT = clPyCorpVRT(FInput, LKeyColumns, LValueColumns)
-    # OPyCorpVRT.printData()
-    # OPyCorpVRT.printData2D()
-    OPyCorpVRT.printData(BPrintStrFormat=True)
-    # OPyCorpVRT.printData2D(BPrintStrFormat=True)
-    
+    if 'dict1d' in LFlags:
+        OPyCorpVRT.printData()
+    if 'dict2d' in LFlags:
+        OPyCorpVRT.printData2D()
+    if 'dict1dstr' in LFlags:
+        OPyCorpVRT.printData(BPrintStrFormat=True)
+    if 'dict2dstr' in LFlags:
+        OPyCorpVRT.printData2D(BPrintStrFormat=True)
+
+
     
     
     
