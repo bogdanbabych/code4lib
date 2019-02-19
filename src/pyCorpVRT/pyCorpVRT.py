@@ -142,9 +142,9 @@ if __name__ == '__main__':
     
     
     OPyCorpVRT = clPyCorpVRT(FInput, LKeyColumns, LValueColumns)
-    OPyCorpVRT.printData()
+    # OPyCorpVRT.printData()
     # OPyCorpVRT.printData2D()
-    # OPyCorpVRT.printData(BPrintStrFormat=True)
+    OPyCorpVRT.printData(BPrintStrFormat=True)
     # OPyCorpVRT.printData2D(BPrintStrFormat=True)
     
     
