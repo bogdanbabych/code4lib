@@ -16,7 +16,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
     '''
 
 
-    def __init__(self, IterInput, LKeyColumns, LValueColumns):
+    def __init__(self, IterInput, LKeyColumns, LValueColumns, LIndexColumns):
         '''
         tab separated Vertical Text Format (vrt)is input  -- see Corpus Workbench manual for details; 
             creates frequency dictionaries for column tuples:
@@ -40,21 +40,22 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         self.DFieldFrq = defaultdict(int) # frequency dictionary for key field combinations: main data structure
         self.DFieldFrq2D = defaultdict(lambda: defaultdict(int)) # 2D frequency dictionary for value field combinations for each key field combination
         
-        if 'wf2lemPosFrq' in LFlags:
+        if 'fileVRT2dict' in LFlags:
             self.fileVRT2dict(IterInput, LKeyColumns, LValueColumns)
         
-        if 'kwLemPos2posTemplatesFrq' in LFlags:
-            pass
+        if 'fileVRT2posTemplates' in LFlags:
+            self.fileVRT2posTemplates(IterInput, LKeyColumns, LValueColumns, LIndexColumns)
+            
         
     
     def fileVRT2dict(self, IterInput, LKeyColumns, LValueColumns):
         """
-        LIndexColumns should not be empty, creates tuples which are index of the frq dictionary created from corpus
+        LKeyColumns should not be empty, creates tuples which are index of the frq dictionary created from corpus
         for the second dictionary:
-        if LValueColumns is empty, then frequency of LIndexColumns tuples is calculated (with an empty tuple as the only value)
+        if LValueColumns is empty, then frequency of LKeyColumns tuples is calculated (with an empty tuple as the only value)
         if LValueColumns is not empty, then frequencies of each possible tuples as values for index tuples are given
         """
-        LPoSPattern = [] # collection of positions between limiting PoS codes (configuration of PoSs)
+        # LPoSPattern = [] # collection of positions between limiting PoS codes (configuration of PoSs)
         for SLine in IterInput:
             SLine = SLine.rstrip()
             # collect pattern until you reach a breaking point;
@@ -84,6 +85,48 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         
         # sys.stdout.write('done\n')
         return
+    
+    def fileVRT2posTemplates(self, IterInput, LKeyColumns, LValueColumns, LIndexColumns):
+        """
+        collect pos templates
+        
+        """
+        
+        LTemplatesKeys = [] # main data structure: tuple of lists that will have same length, e.g., PoS and Lemma; allowing any combination
+        LTemplatesVals = []
+        LTemplatesIndx = []
+        # to be destroyed when we reach a boundary;
+        # to be extended as we go...
+        
+        # fixed number of coordinated lists: Key and Value Combination? Need named lists...
+        # LPoSPattern = [] # collection of positions between limiting PoS codes (configuration of PoSs)
+        for SLine in IterInput:
+            SLine = SLine.rstrip()
+            # collect pattern until you reach a breaking point;
+            
+            LLine = re.split('\t', SLine)
+        
+            try:
+                # create a tuple for main keys
+                TKeyColumns = tuple(LLine[i] for i in LKeyColumns)
+            except:
+                sys.stderr.write('TKeyColumns error: SLine=%(SLine)s\n' % locals())
+            try:
+                # create a tuple for values (keys of the value dictionary)
+                TValueColumns = tuple(LLine[i] for i in LValueColumns) # used as a field for tracking associations (???)
+            except:
+                sys.stderr.write('TValueColumns error: SLine=%(SLine)s\n' % locals())
+        
+            try:
+                # create a tuple for index (This is for an item that represents a keyword + its part of speech in a template)
+                TIndexColumns = tuple(LLine[i] for i in LValueColumns) # used as a field for tracking associations (???)
+            except:
+                sys.stderr.write('TValueColumns error: SLine=%(SLine)s\n' % locals())
+        
+        
+        
+        return
+    
         
     def printData(self, BPrintStrFormat=False):
         for (key, val) in sorted(self.DFieldFrq.items(), key=lambda k: k[1], reverse=True ):
@@ -128,8 +171,9 @@ if __name__ == '__main__':
     # + eval() statement to override the default value)
     
     FInput=sys.stdin
-    LKeyColumns=[] 
-    LValueColumns=[]
+    LKeyColumns=[] # key columns from VRT
+    LValueColumns=[] # value columns from VRT
+    LIndexColumns=[] # index columns (this is for collection of templates: one of the items will be a keyword, which is used as an "index" (e.g., pos1, *lem/pos2, pos3...) - e.g., 'deal'
     LFlags = []
     
     # sys.stderr.write('LKeyColumns= %(LKeyColumns)s ; LValueColumns= %(LValueColumns)s\n' % locals())
@@ -146,7 +190,7 @@ if __name__ == '__main__':
     if len(LKeyColumns) == 0: LKeyColumns.extend([0])
     
     
-    OPyCorpVRT = clPyCorpVRT(FInput, LKeyColumns, LValueColumns)
+    OPyCorpVRT = clPyCorpVRT(FInput, LKeyColumns, LValueColumns, LIndexColumns)
     if 'dict1d' in LFlags:
         OPyCorpVRT.printData()
     if 'dict2d' in LFlags:
