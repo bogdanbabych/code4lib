@@ -54,7 +54,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             SLine = SLine.rstrip()
             # collect pattern until you reach a breaking point;
             # if re.match('pattern', string, flags) # first split the string into fields...
-            # if re.match('^<.+>$', SLine): continue
+            if re.match('^<.+>$', SLine): continue
             
             LLine = re.split('\t', SLine)
             # sys.stdout.write('%(LLine)s\n' % locals())
@@ -62,8 +62,14 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             
             # TKeyColumns = tuple(LLine[i] for i in range(len(LLine)) if i in LKeyColumns)
             # TValueColumns = tuple(LLine[i] for i in range(len(LLine)) if i in LValueColumns)
-            TKeyColumns = tuple(LLine[i] for i in LKeyColumns)
-            TValueColumns = tuple(LLine[i] for i in LValueColumns) # used as a field for tracking associations (???)
+            try:
+                TKeyColumns = tuple(LLine[i] for i in LKeyColumns)
+            except:
+                sys.stderr.write('TKeyColumns error: SLine=%(SLine)s\n' % locals())
+            try:
+                TValueColumns = tuple(LLine[i] for i in LValueColumns) # used as a field for tracking associations (???)
+            except:
+                sys.stderr.write('TValueColumns error: SLine=%(SLine)s\n' % locals())
             
             # sys.stderr.write('TKeyColumns = %(TKeyColumns)s\n' % locals())
             # sys.stderr.write('TValueColumns = %(TValueColumns)s\n\n' % locals())

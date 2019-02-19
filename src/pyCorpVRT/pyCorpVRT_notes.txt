@@ -54,3 +54,10 @@ if __name__ == '__main__':
     
 https://iterm2.com/coprocesses.html
 
+
+
+1. finding tagged Canada 18 corpus
+2. processing patterns there; mapping with BNC patterns
+
+
+
