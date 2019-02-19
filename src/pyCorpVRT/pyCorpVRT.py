@@ -30,7 +30,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         for SLine in FConfig:
             SLine = SLine.rstrip()
             (SType, SPatterns) = re.split('\t', SLine, 1)
-            sys.stderr.write(SPatterns + '\n')
+            sys.stderr.write(SType + ' = ' + SPatterns + '\n')
             if SType == 'STRUCTURAL': self.REStruct = re.compile(SPatterns)
             elif SType == 'LEXICAL': self.RELex = re.compile(SPatterns)
             elif SType == 'POSITIONAL': self.REPosit = re.compile(SPatterns)
@@ -39,7 +39,12 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         
         self.DFieldFrq = defaultdict(int) # frequency dictionary for key field combinations: main data structure
         self.DFieldFrq2D = defaultdict(lambda: defaultdict(int)) # 2D frequency dictionary for value field combinations for each key field combination
-        self.fileVRT2dict(IterInput, LKeyColumns, LValueColumns)
+        
+        if 'wf2lemPosFrq' in LFlags:
+            self.fileVRT2dict(IterInput, LKeyColumns, LValueColumns)
+        
+        if 'kwLemPos2posTemplatesFrq' in LFlags:
+            pass
         
     
     def fileVRT2dict(self, IterInput, LKeyColumns, LValueColumns):
