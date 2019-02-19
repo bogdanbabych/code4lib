@@ -125,6 +125,7 @@ if __name__ == '__main__':
     FInput=sys.stdin
     LKeyColumns=[] 
     LValueColumns=[]
+    LFlags = []
     
     # sys.stderr.write('LKeyColumns= %(LKeyColumns)s ; LValueColumns= %(LValueColumns)s\n' % locals())
     
@@ -141,10 +142,10 @@ if __name__ == '__main__':
     
     
     OPyCorpVRT = clPyCorpVRT(FInput, LKeyColumns, LValueColumns)
-    # OPyCorpVRT.printData()
+    OPyCorpVRT.printData()
     # OPyCorpVRT.printData2D()
     # OPyCorpVRT.printData(BPrintStrFormat=True)
-    OPyCorpVRT.printData2D(BPrintStrFormat=True)
+    # OPyCorpVRT.printData2D(BPrintStrFormat=True)
     
     
     
