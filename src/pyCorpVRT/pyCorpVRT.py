@@ -122,9 +122,15 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             # if re.match('^<.+>$', SLine): continue
             
             LLine = re.split('\t', SLine)
-            SWordForm = LLine[0]
-            SPoS = LLine[1]
-            SLemma = LLine[2]
+            if len(LLine) >= 3:
+                SWordForm = LLine[0]
+                SPoS = LLine[1]
+                SLemma = LLine[2]
+            else: # default values
+                SWordForm = "~~~"
+                SPoS = "~~~"
+                SLemma = "~~~"
+                
 
                 
             # boundary conditions: fire up recording of the window
