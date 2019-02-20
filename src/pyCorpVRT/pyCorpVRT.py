@@ -247,13 +247,14 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             sys.stdout.write('\n')
         return
             
-    def printDataTemplates2D(self):
+    def printDataTemplates2D(self, BTopOnly=False):
         for (key, DVal) in sorted(self.DVrtPoSTemplates2D.items()):
             KeyStr = '/'.join(key)
             sys.stdout.write('%(KeyStr)s\t' % locals())
 
             for (TFieldComb, IFrq) in sorted(DVal.items(), key=lambda k: k[1], reverse=True):
                 sys.stdout.write('%(TFieldComb)s=%(IFrq)d|' % locals())
+                if BTopOnly: break
             sys.stdout.write('\n')
         return
          
@@ -304,6 +305,9 @@ if __name__ == '__main__':
         OPyCorpVRT.printData2D(BPrintStrFormat=True)
     if 'templates2d' in LFlags:
         OPyCorpVRT.printDataTemplates2D()
+    if 'templates2dtoponly' in LFlags:
+        OPyCorpVRT.printDataTemplates2D(BTopOnly=True)
+
 
 
 
