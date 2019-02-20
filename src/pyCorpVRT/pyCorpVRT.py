@@ -131,8 +131,8 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             # sys.stderr.write("LValueTemplate4String = %(LValueTemplate4String)s\n" % locals())
             # sys.stderr.write("SValueTemplate = %(SValueTemplate)s\n\n" % locals())
             
-            # self.DVrtPoSTemplates2D[TTemplatesKeys][SValueTemplate] += 1
-            self.DFieldFrq2D[TTemplatesKeys][SValueTemplate] += 1
+            self.DVrtPoSTemplates2D[TTemplatesKeys][SValueTemplate] += 1
+            # self.DFieldFrq2D[TTemplatesKeys][SValueTemplate] += 1
             
             # end: for IIndex, TTemplatesKVI in enumerate(LTTemplatesKVI):
 
@@ -247,7 +247,16 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             sys.stdout.write('\n')
         return
             
-        
+    def printDataTemplates2D(self):
+        for (key, DVal) in sorted(self.DVrtPoSTemplates2D.items()):
+            KeyStr = '/'.join(key)
+            sys.stdout.write('%(KeyStr)s\t' % locals())
+
+            for (TFieldComb, IFrq) in sorted(DVal.items(), key=lambda k: k[1], reverse=True):
+                sys.stdout.write('%(TFieldComb)s=%(IFrq)d|' % locals())
+            sys.stdout.write('\n')
+        return
+         
             
          
 
@@ -293,6 +302,8 @@ if __name__ == '__main__':
         OPyCorpVRT.printData(BPrintStrFormat=True)
     if 'dict2dstr' in LFlags:
         OPyCorpVRT.printData2D(BPrintStrFormat=True)
+    if 'templates2d' in LFlags:
+        OPyCorpVRT.printDataTemplates2D()
 
 
 
