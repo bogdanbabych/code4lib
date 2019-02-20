@@ -90,7 +90,42 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
     def fileVRT2posTemplatesRec(self, LTTemplatesKeys, LTTemplatesVals, LTTemplatesIndx, LTTemplatesKVI):
         """
         loop over one of the list and create representations for the dictionary of templates, keep indices
+        - every word in the window receives a representation
         """
+        # a prototype template: the value field is collected
+        # LTValueTemplate = LTTemplatesVals
+        
+        for IIndex, TTemplatesKVI in enumerate(LTTemplatesKVI):
+            # access  needed information: keys
+            TTemplatesKeys = LTTemplatesKeys[IIndex]
+            
+            
+            # - make a clone list for the prototype template
+            # a prototype template: the value field is collected
+            # LTValueTemplate = LTTemplatesVals
+            LTValueTemplate = LTTemplatesVals[:] # quick (shallow) copy
+            
+            # replace the item in focus with the value of Index fields
+            TFocus = LTTemplatesIndx[IIndex]
+            LFocus = list(TFocus)
+            SFirstWord = LFocus[0]
+            SFirstWord = '*' + SFirstWord
+            LFocus[0] = SFirstWord
+            LTValueTemplate[IIndex] = tuple(LFocus)
+            
+            # now the value template list is ready, we can create a string for the database from it (as will be accepted by the script
+            LValueTemplate4String = []
+            for TEl in LTValueTemplate: # for every tuple in the List
+                SEl = '/'.join(TEl)
+                LValueTemplate4String.append(SEl)
+            
+            SValueTemplate = ' '.join(LValueTemplate4String) # this is value for the current word
+            
+            
+            # self.DVrtPoSTemplates2D[TTemplatesKeys][SValueTemplate] += 1
+            self.DFieldFrq2D[TTemplatesKeys][SValueTemplate] += 1
+            
+            # end: for IIndex, TTemplatesKVI in enumerate(LTTemplatesKVI):
 
         
         
@@ -249,6 +284,7 @@ if __name__ == '__main__':
         OPyCorpVRT.printData(BPrintStrFormat=True)
     if 'dict2dstr' in LFlags:
         OPyCorpVRT.printData2D(BPrintStrFormat=True)
+
 
 
     
