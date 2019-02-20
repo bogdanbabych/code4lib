@@ -112,11 +112,12 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             TFocus = LTTemplatesIndx[IIndex]
             # sys.stderr.write("TFocus = %(TFocus)s\n" % locals())
             LFocus = list(TFocus)
-            sys.stderr.write("LFocus = %(LFocus)s\n" % locals())
+            # sys.stderr.write("LFocus = %(LFocus)s\n" % locals())
             SFirstWord = LFocus[0]
             SFirstWord = '*' + SFirstWord
             LFocus[0] = SFirstWord
             LTValueTemplate[IIndex] = tuple(LFocus)
+            sys.stderr.write("LTValueTemplate = %(LTValueTemplate)s\n" % locals())
             
             # now the value template list is ready, we can create a string for the database from it (as will be accepted by the script
             LValueTemplate4String = []
