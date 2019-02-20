@@ -121,14 +121,15 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             
             # now the value template list is ready, we can create a string for the database from it (as will be accepted by the script
             LValueTemplate4String = []
-            sys.stderr.write(":\n" % locals())
+            # sys.stderr.write(":\n" % locals())
             for TEl in LTValueTemplate: # for every tuple in the List
                 SEl = '/'.join(TEl)
-                sys.stderr.write("TEl = %(TEl)s ; SEl = %(SEl)s\n" % locals())
+                # sys.stderr.write("TEl = %(TEl)s ; SEl = %(SEl)s\n" % locals())
                 LValueTemplate4String.append(SEl)
             
             SValueTemplate = ' '.join(LValueTemplate4String) # this is value for the current word
-            
+            sys.stderr.write("LValueTemplate4String = %(LValueTemplate4String)s\n" % locals())
+            sys.stderr.write("SValueTemplate = %(SValueTemplate)s\n\n" % locals())
             
             # self.DVrtPoSTemplates2D[TTemplatesKeys][SValueTemplate] += 1
             self.DFieldFrq2D[TTemplatesKeys][SValueTemplate] += 1
