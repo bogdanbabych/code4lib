@@ -110,8 +110,9 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             
             # replace the item in focus with the value of Index fields
             TFocus = LTTemplatesIndx[IIndex]
-            sys.stderr.write("TFocus = %(TFocus)s\n" % locals())
+            # sys.stderr.write("TFocus = %(TFocus)s\n" % locals())
             LFocus = list(TFocus)
+            sys.stderr.write("LFocus = %(LFocus)s\n" % locals())
             SFirstWord = LFocus[0]
             SFirstWord = '*' + SFirstWord
             LFocus[0] = SFirstWord
