@@ -12,5 +12,6 @@
 # python pyCorpVRT.py "LKeyColumns.extend([0])" "LValueColumns.extend([1])" "LIndexColumns.extend([2,1])" "LFlags.extend(['fileVRT2posTemplates','templates2dtoponly'])" < pyCorpVRT_in_canada2018.vrt > pyCorpVRT_out_canada2018.txt
 
 
-python pyCorpVRT.py "LKeyColumns.extend([0])" "LValueColumns.extend([1])" "LIndexColumns.extend([2,1])" "LFlags.extend(['fileVRT2posTemplates','templates2dtoponly'])" < pyCorpVRT_in_bnc1994-1mw.vrt > pyCorpVRT_out_bnc1994-1mw.tsv
+# python pyCorpVRT.py "LKeyColumns.extend([0])" "LValueColumns.extend([1])" "LIndexColumns.extend([2,1])" "LFlags.extend(['fileVRT2posTemplates','templates2dtoponly'])" < pyCorpVRT_in_bnc1994-1mw.vrt > pyCorpVRT_out_bnc1994-1mw.tsv
+python pyCorpVRT.py "LKeyColumns.extend([0])" "LValueColumns.extend([1])" "LIndexColumns.extend([2,1])" "LFlags.extend(['fileVRT2posTemplates','templates2dtoponly'])" < pyCorpVRT_in_bnc1994.vrt > pyCorpVRT_out_bnc1994.tsv
 python pyCorpVRT.py "LKeyColumns.extend([0])" "LValueColumns.extend([1])" "LIndexColumns.extend([2,1])" "LFlags.extend(['fileVRT2posTemplates','templates2dtoponly'])" < pyCorpVRT_in_canada2018.vrt > pyCorpVRT_out_canada2018.tsv
