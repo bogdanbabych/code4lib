@@ -1,4 +1,4 @@
 STRUCTURAL	</?text|</?s
 LEXICAL	&.*
-POSITIONAL	LSENT|,|:|;|\(|\)
+POSITIONAL	SENT|,|:|;|\(|\)
 REPETITION	(NP|JJ)
