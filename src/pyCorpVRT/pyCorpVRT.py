@@ -196,7 +196,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
                 sys.stderr.write('TValueColumns error: SLine=%(SLine)s\n' % locals())
             try:
                 # create a tuple for index (This is for an item that represents a keyword + its part of speech in a template)
-                TIndexColumns = tuple(LLine[i] for i in LValueColumns)
+                TIndexColumns = tuple(LLine[i] for i in LIndexColumns)
                 LTTemplatesIndx.append(TIndexColumns)
             except:
                 sys.stderr.write('TValueColumns error: SLine=%(SLine)s\n' % locals())
