@@ -253,8 +253,11 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             sys.stdout.write('%(KeyStr)s\t' % locals())
 
             for (TFieldComb, IFrq) in sorted(DVal.items(), key=lambda k: k[1], reverse=True):
+                if BTopOnly: 
+                    sys.stdout.write('%(TFieldComb)s' % locals())
+                    break
                 sys.stdout.write('%(TFieldComb)s=%(IFrq)d|' % locals())
-                if BTopOnly: break
+                
             sys.stdout.write('\n')
         return
          
