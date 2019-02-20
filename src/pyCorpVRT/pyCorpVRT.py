@@ -105,6 +105,8 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             # a prototype template: the value field is collected
             # LTValueTemplate = LTTemplatesVals
             LTValueTemplate = LTTemplatesVals[:] # quick (shallow) copy
+            sys.stderr.write("LTValueTemplate = %(LTValueTemplate)s\n" % locals())
+            
             
             # replace the item in focus with the value of Index fields
             TFocus = LTTemplatesIndx[IIndex]
