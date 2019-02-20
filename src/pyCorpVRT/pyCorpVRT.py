@@ -128,8 +128,8 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
                 LValueTemplate4String.append(SEl)
             
             SValueTemplate = ' '.join(LValueTemplate4String) # this is value for the current word
-            sys.stderr.write("LValueTemplate4String = %(LValueTemplate4String)s\n" % locals())
-            sys.stderr.write("SValueTemplate = %(SValueTemplate)s\n\n" % locals())
+            # sys.stderr.write("LValueTemplate4String = %(LValueTemplate4String)s\n" % locals())
+            # sys.stderr.write("SValueTemplate = %(SValueTemplate)s\n\n" % locals())
             
             # self.DVrtPoSTemplates2D[TTemplatesKeys][SValueTemplate] += 1
             self.DFieldFrq2D[TTemplatesKeys][SValueTemplate] += 1
