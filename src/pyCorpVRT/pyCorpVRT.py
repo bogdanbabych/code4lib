@@ -86,6 +86,11 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         # sys.stdout.write('done\n')
         return
     
+    def fileVRT2posTemplatesRec(self, LTemplatesKeys, LTemplatesVals, LTemplatesIndx):
+        
+        return
+    
+    
     def fileVRT2posTemplates(self, IterInput, LKeyColumns, LValueColumns, LIndexColumns):
         """
         collect pos templates
@@ -103,8 +108,16 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         for SLine in IterInput:
             SLine = SLine.rstrip()
             # collect pattern until you reach a breaking point;
+            # if re.match('^<.+>$', SLine): continue
             
             LLine = re.split('\t', SLine)
+            
+            # boundary conditions: fire up recording of the window
+            if re.match(self.REStruct, SLine):
+                self.fileVRT2posTemplatesRec(LTemplatesKeys, LTemplatesVals, LTemplatesIndx)
+                continue
+            
+            # other conditions
         
             try:
                 # create a tuple for main keys
@@ -122,6 +135,8 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
                 TIndexColumns = tuple(LLine[i] for i in LValueColumns) # used as a field for tracking associations (???)
             except:
                 sys.stderr.write('TValueColumns error: SLine=%(SLine)s\n' % locals())
+                
+            
         
         
         
