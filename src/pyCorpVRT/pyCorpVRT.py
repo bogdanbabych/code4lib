@@ -94,7 +94,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         """
         # a prototype template: the value field is collected
         # LTValueTemplate = LTTemplatesVals
-        sys.stderr.write("LTTemplatesKeys = %(LTTemplatesKeys)s\nLTTemplatesVals = %(LTTemplatesVals)s\nLTTemplatesIndx = %(LTTemplatesIndx)s\n\n" % locals())
+        ### sys.stderr.write("LTTemplatesKeys = %(LTTemplatesKeys)s\nLTTemplatesVals = %(LTTemplatesVals)s\nLTTemplatesIndx = %(LTTemplatesIndx)s\n\n" % locals())
         
         for IIndex, TTemplatesKVI in enumerate(LTTemplatesKVI):
             # access  needed information: keys
