@@ -57,6 +57,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         if LValueColumns is not empty, then frequencies of each possible tuples as values for index tuples are given
         """
         # LPoSPattern = [] # collection of positions between limiting PoS codes (configuration of PoSs)
+        
         for SLine in IterInput:
             SLine = SLine.rstrip()
             # collect pattern until you reach a breaking point;
@@ -153,7 +154,9 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         LTTemplatesKeys = [] # main data structure: tuple of lists that will have same length, e.g., PoS and Lemma; allowing any combination
         LTTemplatesVals = []
         LTTemplatesIndx = []
-        LTTemplatesKVI = [] # list of tuples: Key, Value, Index (KVI) : this is used for preparing keys frameowrk
+        LTTemplatesKVI = [] # list of tuples: Key, Value, Index (KVI) : this is used for preparing keys framework
+        
+        ICountLines = 0
         
         # to be destroyed when we reach a boundary;
         # to be extended as we go...
@@ -162,6 +165,9 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         # LPoSPattern = [] # collection of positions between limiting PoS codes (configuration of PoSs)
         for SLine in IterInput:
             SLine = SLine.rstrip()
+            ICountLines += 1
+            if ICountLines % 100000 == 0:
+                sys.stderr.write("%(ICountLines)d :: %(SLine)s\n" % locals())
             # collect pattern until you reach a breaking point;
             # if re.match('^<.+>$', SLine): continue
             
