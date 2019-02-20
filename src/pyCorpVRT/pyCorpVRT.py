@@ -39,6 +39,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         
         self.DFieldFrq = defaultdict(int) # frequency dictionary for key field combinations: main data structure
         self.DFieldFrq2D = defaultdict(lambda: defaultdict(int)) # 2D frequency dictionary for value field combinations for each key field combination
+        self.DVrtPoSTemplates2D = defaultdict(lambda: defaultdict(int)) # 2D frq dictionary: PoS patterns mapped from lem+pos configurations
         
         if 'fileVRT2dict' in LFlags:
             self.fileVRT2dict(IterInput, LKeyColumns, LValueColumns)
@@ -86,7 +87,15 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         # sys.stdout.write('done\n')
         return
     
-    def fileVRT2posTemplatesRec(self, LTemplatesKeys, LTemplatesVals, LTemplatesIndx):
+    def fileVRT2posTemplatesRec(self, LTTemplatesKeys, LTTemplatesVals, LTTemplatesIndx, LTTemplatesKVI):
+        """
+        loop over one of the list and create representations for the dictionary of templates, keep indices
+        """
+
+        
+        
+        # this operation is performed for every lemma+pos in the window
+        # self.DVrtPoSTemplates2D[TKeyColumns][TValueColumns] += 1
         
         return
     
@@ -94,12 +103,14 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
     def fileVRT2posTemplates(self, IterInput, LKeyColumns, LValueColumns, LIndexColumns):
         """
         collect pos templates
-        
         """
         
-        LTemplatesKeys = [] # main data structure: tuple of lists that will have same length, e.g., PoS and Lemma; allowing any combination
-        LTemplatesVals = []
-        LTemplatesIndx = []
+        # all lists are synchronised, and represent reduplication of information for more convenient processing
+        LTTemplatesKeys = [] # main data structure: tuple of lists that will have same length, e.g., PoS and Lemma; allowing any combination
+        LTTemplatesVals = []
+        LTTemplatesIndx = []
+        LTTemplatesKVI = [] # list of tuples: Key, Value, Index (KVI) : this is used for preparing keys frameowrk
+        
         # to be destroyed when we reach a boundary;
         # to be extended as we go...
         
@@ -111,34 +122,52 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
             # if re.match('^<.+>$', SLine): continue
             
             LLine = re.split('\t', SLine)
-            
+            SWordForm = LLine[0]
+            SPoS = LLine[1]
+            SLemma = LLine[2]
+
+                
             # boundary conditions: fire up recording of the window
-            if re.match(self.REStruct, SLine):
-                self.fileVRT2posTemplatesRec(LTemplatesKeys, LTemplatesVals, LTemplatesIndx)
+            if re.match(self.REStruct, SLine) or re.match(self.RELex, SLemma) or re.match(self.REPosit, SPoS, flags):
+                # if any of these conditions for the boundary found, then add values, destroy window, and start the window again
+                self.fileVRT2posTemplatesRec(LTTemplatesKeys, LTTemplatesVals, LTTemplatesIndx, LTTemplatesKVI)
+                # destroying the window
+                LTTemplatesKeys = [] # main data structure: tuple of lists that will have same length, e.g., PoS and Lemma; allowing any combination
+                LTTemplatesVals = []
+                LTTemplatesIndx = []
+                LTTemplatesKVI = []
+
                 continue
-            
-            # other conditions
-        
+                   
+            # other conditions: if no boundary detected, then create index + expand the window:
             try:
                 # create a tuple for main keys
                 TKeyColumns = tuple(LLine[i] for i in LKeyColumns)
+                LTTemplatesKeys.append(TKeyColumns)
             except:
                 sys.stderr.write('TKeyColumns error: SLine=%(SLine)s\n' % locals())
             try:
                 # create a tuple for values (keys of the value dictionary)
                 TValueColumns = tuple(LLine[i] for i in LValueColumns) # used as a field for tracking associations (???)
+                LTTemplatesVals.append(TValueColumns)
             except:
                 sys.stderr.write('TValueColumns error: SLine=%(SLine)s\n' % locals())
-        
             try:
                 # create a tuple for index (This is for an item that represents a keyword + its part of speech in a template)
-                TIndexColumns = tuple(LLine[i] for i in LValueColumns) # used as a field for tracking associations (???)
+                TIndexColumns = tuple(LLine[i] for i in LValueColumns)
+                LTTemplatesIndx.append(TIndexColumns)
             except:
                 sys.stderr.write('TValueColumns error: SLine=%(SLine)s\n' % locals())
+            try:
+                # create a tuple out of the whole list:
+                TTemplatesKVI = tuple(LLine)
+                LTTemplatesKVI.append(TTemplatesKVI)
+            except:
+                sys.stderr.write('TTemplatesKVI error: SLine=%(SLine)s\n' % locals())
+                
+            # end - for SLine in IterInput (continue: is implicit)
                 
             
-        
-        
         
         return
     
