@@ -166,7 +166,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         for SLine in IterInput:
             SLine = SLine.rstrip()
             ICountLines += 1
-            if ICountLines % 100000 == 0:
+            if ICountLines % 500000 == 0:
                 sys.stderr.write("%(ICountLines)d :: %(SLine)s\n" % locals())
             # collect pattern until you reach a breaking point;
             # if re.match('^<.+>$', SLine): continue
@@ -254,7 +254,11 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
         return
             
     def printDataTemplates2D(self, BTopOnly=False):
+        ICountEntries = 0
         for (key, DVal) in sorted(self.DVrtPoSTemplates2D.items()):
+            ICountEntries += 1
+            if ICountEntries % 50000 == 0: sys.stderr.write("%(ICountEntries)d :: %(key)s\n" % locals())
+            
             KeyStr = '/'.join(key)
             sys.stdout.write('%(KeyStr)s\t' % locals())
 
