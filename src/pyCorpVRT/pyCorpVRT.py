@@ -128,7 +128,7 @@ class clPyCorpVRT(object): # clPyDictSort is the template for this class; extens
 
                 
             # boundary conditions: fire up recording of the window
-            if re.match(self.REStruct, SLine) or re.match(self.RELex, SLemma) or re.match(self.REPosit, SPoS, flags):
+            if re.match(self.REStruct, SLine) or re.match(self.RELex, SLemma) or re.match(self.REPosit, SPoS):
                 # if any of these conditions for the boundary found, then add values, destroy window, and start the window again
                 self.fileVRT2posTemplatesRec(LTTemplatesKeys, LTTemplatesVals, LTTemplatesIndx, LTTemplatesKVI)
                 # destroying the window
