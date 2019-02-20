@@ -270,7 +270,7 @@ if __name__ == '__main__':
         # python pyDictSort.py "LKeyColumns.extend([0])" "LValueColumns.extend([2,1])" < pyDictSort_in.txt > pyDictSort_out.txt
         eval(el)
     
-    sys.stderr.write('LKeyColumns= %(LKeyColumns)s ;\n LValueColumns= %(LValueColumns)s LIndexColumns = %(LIndexColumns)%;\n LFlags = %(LFlags)s ;\n' % locals())
+    sys.stderr.write('LKeyColumns= %(LKeyColumns)s ;\n LValueColumns= %(LValueColumns)s LIndexColumns = %(LIndexColumns)s;\n LFlags = %(LFlags)s ;\n' % locals())
     
     # in case index not initialised
     if len(LKeyColumns) == 0: LKeyColumns.extend([0])
