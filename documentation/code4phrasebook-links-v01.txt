@@ -1,0 +1,9 @@
+Python & SQL / vs. Shelve
+    http://eliang.blogspot.com/2011/07/python-shelve-vs-sqlite3.html
+    
+    https://stackoverflow.com/questions/4103430/what-is-the-difference-between-pickle-and-shelve
+    
+    https://pythonschool.net/databases/introduction-to-databases/
+    https://pythonschool.net/category/databases.html
+    
+

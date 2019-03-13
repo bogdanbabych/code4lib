@@ -61,3 +61,5 @@ https://iterm2.com/coprocesses.html
 
 
 
+deal    NNS NN NN NNS !deal/NN
+WP V.* J.*=;valid,;redeemable,;in-store,;safe IN=:to,:from DT J.* !deal/NN
