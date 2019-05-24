@@ -11,3 +11,12 @@ rsync -avh smlbb@corpus:/data/bogdan/corpus/medical/nohup.out .
 rsync -avh ./PDT3.5-xml.zip smlbb@corpus:/data/bogdan/corpus/prague-dependencies
 
 
+
+# ignore repositories
+git rm -r --cached .
+git add .
+git commit -m "fixing .gitignore"
+
+
+
+
